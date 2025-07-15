@@ -16,6 +16,7 @@ public:
         int m = 0 ;int jinwei = 0;
         for(int i = a-1 ;i>=0 ; i--)//123
         {
+            
             for(int j = b-1 ;j >=0 ; j--)
             {
                 cheng = (num1[i] - '0') * (num2[j] - '0');
