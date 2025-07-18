@@ -15,17 +15,18 @@
 
 1.次方运算
 
-‘’‘cpp
+```cpp
+{
+    #include <cmath>
+    double result = pow(10, i);  // 返回 double 
+    int intResult = static\_cast\<int>(pow(10, i));  // 强制转换
+}
+```
+2.字符数字转换
+![alt text](image.png)
+```cpp
 
-\#include \<cmath>
-double result = pow(10, i);  // 返回 double
-int intResult = static\_cast\<int>(pow(10, i));  // 强制转换
-
-'''
-
-
-
-2.?**?字符转数字?**?：
-
-`num1[i] - '0'`
-
+    string num1;
+    `num1[i] - '0'`
+```
+3.
