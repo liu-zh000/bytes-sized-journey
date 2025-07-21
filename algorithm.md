@@ -4,87 +4,12 @@ PCL（点云处理）、Eigen（矩阵运算）、ROS（消息传递）
 ## 2222
 
 ```CPP
-#include <iostream>
-#include <string>
-#include <vector>
-#include <omp.h>
-#include <Eigen/Core>
-#include <pcl/io/ply_io.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/registration/icp.h>
-#include <pcl/registration/ndt.h>
-#include <pcl/console/time.h> 
-#include <pcl/point_types.h>
-#include <pcl/common/transforms.h>
-#include <pcl/visualization/pcl_visualizer.h>
-#include <pcl/visualization/cloud_viewer.h>
-#include <pcl/filters/voxel_grid.h>
-#include <pcl/filters/approximate_voxel_grid.h>
-#include <pcl/filters/extract_indices.h>  
-#include <pcl/filters/filter.h>
-#include <pcl/filters/project_inliers.h>
-#include <pcl/ModelCoefficients.h>
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
-#include <chrono>
-#include <cmath> // 用于 M_PI 和 cos/sin 等数学函数
-#include <pcl/segmentation/extract_clusters.h>
-#include <pcl/filters/statistical_outlier_removal.h>
-#include <pcl/features/moment_of_inertia_estimation.h>
-#include <pcl/filters/passthrough.h>  // 直通滤波
-#include <pcl/filters/conditional_removal.h>
-#include <pcl/features/normal_3d.h>
-#include <pcl/segmentation/region_growing.h>
-#include <pcl/features/moment_of_inertia_estimation.h>
-#include <pcl/sample_consensus/sac_model_plane.h>
-#include <pcl/common/centroid.h>
-#include <pcl/sample_consensus/sac_model_line.h>
-#include <pcl/sample_consensus/ransac.h>
-#include <pcl/common/angles.h>  // 弧度角度转换
-#include <pcl/common/io.h> 
-#include <pcl/point_cloud.h>
-
-#include <pcl/filters/statistical_outlier_removal.h>
-#include <pcl/filters/radius_outlier_removal.h>
-#include <pcl/common/common.h>  // 包含getMinMax3D函数头文件
-
-
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/features/normal_3d.h>
-#include <pcl/features/fpfh.h>
-#include <pcl/features/fpfh_omp.h>
-#include <pcl/registration/ndt.h>
-#include <pcl/filters/approximate_voxel_grid.h>
-#include <pcl/visualization/pcl_visualizer.h>
-
-#include <pcl/registration/icp.h>
-
-#include <pcl/common/pca.h>
-
-#include <pcl/point_types.h>
-#include <pcl/common/geometry.h>
-#include <iostream>
-#include <cmath>
-#include <pcl/surface/convex_hull.h>
-using namespace std;
-using namespace Eigen;
-using namespace pcl;
-
-
-//**lz */
-#include <sensor_msgs/PointCloud2.h>
-#include <pcl_conversions/pcl_conversions.h>
-#include <pcl/point_cloud.h>
-#include <geometry_msgs/Vector3.h>
-#include <std_msgs/Float64MultiArray.h>
-#include <Eigen/Dense> // 使用Eigen库
-#include <UDP_ros_pkg/Dis.h>
-#include <UDP_ros_pkg/fromudp.h>  // 引用对方包的自定义消息
-#include <std_msgs/Bool.h>
-#include <mutex>
-#include <condition_variable>
+点云滤波??：半径滤波、直通滤波、半径离群点去除。
+??点云分割??：欧式聚类、平面拟合（RANSAC）。
+??点云配准??：ICP算法，用于将模板点云与目标点云对齐。
+??坐标变换??：使用Eigen进行矩阵变换。
+??姿态表示??：使用欧拉角（roll, pitch, yaw）表示自卸车的姿态。
+??几何计算??：通过质心、向量夹角等计算车斗方向。
 std::mutex mtx;
 std::condition_variable cv;
 bool udp_data_ready = false; 
