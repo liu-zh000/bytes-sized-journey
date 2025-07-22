@@ -45,77 +45,134 @@
 //     }
 // };
 
+// class Solution {
+// public:
+//     int minSubArrayLen(int target, vector<int>& nums) {
+//         int largem = nums[0]; int ptr = 0;int sum =0;
+//         int l = 1;
+//         for (int i = 0 ; i < nums.size() ; i ++ )
+//         {
+//             if(largem < nums[i])
+//             {
+//                 largem = nums[i];
+//                 ptr = i ;
+//             }
+//         }
+
+//         if (largem >= target)
+//         {
+//             return 1;
+//         }
+//         else
+//         {
+//             sum = largem;
+//             int ptr2 = ptr ;
+//             while(sum < target)
+//             {
+
+//                 if(ptr2 - 1 < 0  && ptr + 1 >= nums.size())
+//                 {
+//                     return 0;
+//                 }
+
+//                 if(ptr + 1 < nums.size() || ptr2 - 1 >= 0)
+//                 {
+//                     if(nums[ptr + 1] >= nums[ptr2 - 1])
+//                     {
+//                         sum += nums[ptr + 1 ];
+//                         ptr ++ ;
+//                         l++;
+//                     }
+//                     else
+//                     {
+//                         sum += nums[ptr2 - 1 ];
+//                         ptr2 --;
+//                         l++;
+//                     }
+//                 }
+//                 else if(ptr + 1 >= nums.size() && ptr2 - 1 >=  0)
+//                 {
+//                     sum += nums[ptr2 - 1 ];
+//                         ptr2 --;
+//                         l++;
+//                 }
+//                 else if(ptr2 - 1 <  0)
+//                 {
+//                     sum += nums[ptr + 1 ];
+//                         ptr ++ ;
+//                         l++;
+//                 }
+
+//             }
+//             return  l; 
+
+//         }
+//      }
+// };
 class Solution {
 public:
-    int minSubArrayLen(int target, vector<int>& nums) {
-        int largem = nums[0]; int ptr = 0;int sum =0;
-        int l = 1;
-        for (int i = 0 ; i < nums.size() ; i ++ )
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> a(n ,vector<int>( n , 0));
+        vector<int> dir = {1,2,3,4}; //1 右  2 下  3 左  4 上
+        int num = 1 ,l = n-1;
+        int rounds = n / 2;//圈数
+        int a_rounds = 0;
+        int i = 0 ,j = 0;
+        int startx= 0 ,starty = 0;int mid = n / 2; 
+        if(n == 1)
         {
-            if(largem < nums[i])
-            {
-                largem = nums[i];
-                ptr = i ;
-            }
-        }
-
-        if (largem >= target)
-        {
-            return 1;
+            a[0][0] = 1;
+            return a ;
         }
         else
         {
-            sum = largem;
-            int ptr2 = ptr ;
-            while(sum < target)
+            while(rounds--  )
             {
-
-                if(ptr2 - 1 < 0  && ptr + 1 >= nums.size())
+                i = startx;
+                j = starty;
+                for( ; j <  n-1 ;j++   )
                 {
-                    return 0;
+                    a[i][j] = num ++;
                 }
 
-                if(ptr + 1 < nums.size() || ptr2 - 1 >= 0)
+                for( ; i <  n-1 ;i++   )
                 {
-                    if(nums[ptr + 1] >= nums[ptr2 - 1])
-                    {
-                        sum += nums[ptr + 1 ];
-                        ptr ++ ;
-                        l++;
-                    }
-                    else
-                    {
-                        sum += nums[ptr2 - 1 ];
-                        ptr2 --;
-                        l++;
-                    }
+                    a[i][j] = num ++;
                 }
-                else if(ptr + 1 >= nums.size() && ptr2 - 1 >=  0)
+
+                for( ; j > starty ;j-- )
                 {
-                    sum += nums[ptr2 - 1 ];
-                        ptr2 --;
-                        l++;
+                    a[i][j] = num ++;
                 }
-                else if(ptr2 - 1 <  0)
+
+                for( i ; i > startx ;i--   )
                 {
-                    sum += nums[ptr + 1 ];
-                        ptr ++ ;
-                        l++;
+                    a[i][j] = num ++;
                 }
+
+                
+                 n =  n -1;//向量长度
+                //a_rounds = a_rounds +  2;
+                startx++;
+                starty++;
 
             }
-            return  l; 
 
+            if (n%2 == 1)
+            {
+                a[mid][mid] = num;
+            }
         }
-     }
+        return a;
+    }
 };
 
 int main()
 {
     Solution a;
     vector<int> ab ={1,1,1,1,1,1,1,1};
-    int result = a.minSubArrayLen(11 , ab);
-    std::cout << "结果"<<result << std::endl;
+    vector<vector<int>> result = a.generateMatrix(3);
+    //std::cout << "结果"<< result  << std::endl;
 }
 
 // class Solution {
