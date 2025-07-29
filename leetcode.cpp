@@ -110,9 +110,6 @@
 //      }
 // };
 
-
-
-
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
@@ -178,7 +175,6 @@ int main()
     vector<vector<int>> result = a.generateMatrix(3);
     //std::cout << "½á¹û"<< result  << std::endl;
 }
-
 // class Solution {
 // public:
 //     string multiply(string num1, string num2) {
