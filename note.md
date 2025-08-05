@@ -63,3 +63,25 @@ CÓïÑÔÉè¼ÆÔ­ÔòÊÇ??¸ßÐ§ÀûÓÃÓ²¼þ??£¬Òò´ËÀàÐÍ´óÐ¡ÓÉ±àÒëÆ÷¸ù¾ÝÄ¿±êÓ²¼þ¾ö¶¨£¨Ö»ÒªÂú×ã±
 | **ÊÊÓÃ³¡¾°**              | Webä¯ÀÀ£¨HTTP/HTTPS£©<br>ÎÄ¼þ´«Êä£¨FTP/SFTP£©<br>µç×ÓÓÊ¼þ£¨SMTP£©<br>Êý¾Ý¿â·ÃÎÊ | ÊµÊ±ÊÓÆµ/ÓïÒô<br>ÔÚÏßÓÎÏ·<br>DNS²éÑ¯<br>Ö±²¥Á÷Ã½Ìå<br>IoT´«¸ÐÆ÷ |
 | **ÄÚºË×ÊÔ´Õ¼ÓÃ**          | ¸ß£¨Î¬»¤Á¬½Ó×´Ì¬±í/ÖØ´«»º³åÇø£©                         | ¼«µÍ£¨ÎÞ×´Ì¬Á¬½Ó£©                                  |
 
+### new/delete vs malloc/free ¶Ô±È
+
+| **ÌØÐÔ**                | **`new`/`delete`**                                    | **`malloc()`/`free()`**                              |
+|-------------------------|------------------------------------------------------|------------------------------------------------------|
+| **ÓïÑÔ·¶³ë**            | C++ÔËËã·û                                            | C±ê×¼¿âº¯Êý                                          |
+| **Óï·¨**                | `Type* ptr = new Type;`<br>`delete ptr;`             | `void* ptr = malloc(size);`<br>`free(ptr);`          |
+| **¹¹Ôìº¯Êýµ÷ÓÃ**        | ? µ÷ÓÃ¹¹Ôìº¯Êý                                      | ? ²»µ÷ÓÃ¹¹Ôìº¯Êý                                    |
+| **Îö¹¹º¯Êýµ÷ÓÃ**        | ? µ÷ÓÃÎö¹¹º¯Êý                                      | ? ²»µ÷ÓÃÎö¹¹º¯Êý                                    |
+| **·µ»ØÀàÐÍ**            | Ç¿ÀàÐÍÖ¸Õë (`Type*`)                                 | ÎÞÀàÐÍÖ¸Õë (`void*`)£¬ÐèÏÔÊ½×ªÐÍ                    |
+| **ÄÚ´æ´óÐ¡¼ÆËã**        | ×Ô¶¯¼ÆËã£º`new Type`                                 | ÊÖ¶¯¼ÆËã£º`malloc(sizeof(Type)*n)`                  |
+| **·ÖÅäÊ§°Ü´¦Àí**        | Å×³ö `std::bad_alloc` Òì³£                           | ·µ»Ø `NULL`                                          |
+| **ÖØÔØÄÜÁ¦**            | ? ¿ÉÈ«¾Ö/ÀàÄÚÖØÔØ                                   | ? ²»¿ÉÖØÔØ                                          |
+| **ÄÚ´æÀ´Ô´**            | ×ÔÓÉ´æ´¢Çø (¿ÉÄÜ¡Ù¶Ñ)                                 | ¶ÑÄÚ´æ                                               |
+| **Êý×éÖ§³Ö**            | `new Type[n]`/`delete[]`                             | `malloc(n*sizeof)`/`free` ÎÞÌØÊâÊý×é´¦Àí            |
+| **ÀàÐÍ°²È«**            | ? ÀàÐÍ°²È«                                          | ? ÀàÐÍ²»°²È«                                        |
+| **ÖØÐÂ·ÖÅä**            | ? ²»Ö§³Ö (`realloc`Ìæ´ú·½°¸)                        | ? Ö§³Ö `realloc`                                    |
+| **¶àÌ¬Ö§³Ö**            | ? ÕýÈ·µ÷ÓÃÅÉÉúÀàÎö¹¹                                | ? ÆÆ»µ¶ÔÏóÍêÕûÐÔ                                    |
+| **×Ô¶¨Òå¶ÔÆë**          | C++11ÆðÖ§³Ö `alignas`                                | ÐèÆ½Ì¨Ïà¹Øº¯Êý (`posix_memalign`µÈ)                 |
+| **³õÊ¼»¯**              | `new Type(args)`/`new Type{values}`                 | Ðè¶îÍâ `memset` »òÊÖ¶¯¸³Öµ                          |
+| **Òì³£°²È«**            | ? ¿ÉÓëÒì³£»úÖÆ¼¯³É                                  | ? ÐèÊÖ¶¯¼ì²é·µ»ØÖµ                                  |
+| **´úÂë·ç¸ñ**            | C++ÃæÏò¶ÔÏó·ç¸ñ                                      | C¹ý³ÌÊ½·ç¸ñ                                        a |
+| **µ×²ãÄÚ´æ²Ù×÷**        | ? ²»ÊÊºÏÔ­Ê¼ÄÚ´æ²Ù×÷                                | ? ÊÊºÏÔ­Ê¼ÄÚ´æ·ÖÅä                                 |
