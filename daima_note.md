@@ -21,6 +21,7 @@
 
     string num1;
     `num1[i] - '0'`
+    std::toupper
 ```
 3.前缀和 + 二分查找
 ```cpp
